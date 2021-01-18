@@ -5,6 +5,7 @@ var foodS, foodStock;
 var addFoodButton, feedButton;
 var feedTime, lastFed;
 var foodObj;
+var milkFood;
 
 function preload(){
   dogImage = loadImage("images/dogImage.png");
@@ -20,6 +21,8 @@ function setup() {
   dog.addImage(dogImage);
   dog.scale = 0.4;
 
+  milkFood = new Food();
+
   foodStock = database.ref("Food").on("value", readStock);
 
   feedTime = database.ref("FeedTime").on("value", (data)=>{
@@ -29,8 +32,8 @@ function setup() {
   addFoodButton = createButton("Add food!");
   addFoodButton.position(1230,350);
   addFoodButton.mousePressed(()=>{
-    foodStock++;
-    writeStock(foodStock);
+    ++foodStock;
+    milkFood.foodStock = foodStock;
   });
 
   feedButton = createButton("Feed Bruno!");
@@ -50,11 +53,6 @@ function setup() {
 
 function draw() {  
   background(46, 139, 87);
-
-  /*if(keyWentDown(UP_ARROW)){
-    writeStock(foodStock);
-    dog.addImage(happyDog);
-  }*/
 
   fill(255,255,254);
   textSize(22);
@@ -78,11 +76,14 @@ function draw() {
   textSize(18);
   text("Hint: Press the 'Feed Bruno!' button to feed Shreya's pet!", 70, 475);
 
+  milkFood.display();
+
   drawSprites();
 }
 
 function readStock(data){
   foodStock = data.val();
+  milkFood.foodStock = foodStock;
 }
 
 function writeStock(x){

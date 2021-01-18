@@ -1,7 +1,9 @@
 class Food{
     constructor(){
         this.image = loadImage("images/milk.png");
-        this.foodStock = foodStock;
+        /* refers to the object of Food class's property */
+        this.foodStock = foodStock /*global variable*/
+        this.foodStock = 0;
         this.lastFed;
     }
     updateFoodStock(){
@@ -14,15 +16,15 @@ class Food{
         
     }
     display(){
-        var x = 500, y= 300
+        var x = 100, y= 200
 
-        imageMode(CENTER)
-        image(this.image, 700, 300, 70, 70)
+        //imageMode(CENTER)
+        //image(this.image, 700, 300, 70, 70)
 
-        if(this.foodStock!=0) {
+        if(this.foodStock!=0){
             for(var i = 0; i < this.foodStock; i++){
                 if(i%10 === 0){
-                    x = 500;
+                    x = 100;
                     y = y+50;
                 }
                 imageMode(CENTER);
